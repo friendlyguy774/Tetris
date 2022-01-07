@@ -4,6 +4,7 @@ from sys import exit
 
 pygame.init()
 
+#hi github repository
 square = square.Square()
 white = [255, 255, 255]
 coordinates = square.square_coordinates
