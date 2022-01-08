@@ -37,6 +37,7 @@ def block_generator():
 
 pygame.init()
 
+
 white = [255, 255, 255]
 
 screen = pygame.display.set_mode((400, 800))
