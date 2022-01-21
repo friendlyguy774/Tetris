@@ -1,5 +1,5 @@
 import pygame
-from pygame import K_LEFT, K_RIGHT, K_DOWN
+from pygame import K_LEFT, K_RIGHT, K_DOWN, K_d
 
 import square
 from sys import exit
@@ -73,6 +73,10 @@ while True:
             if event.key == K_DOWN:
                 square.move_block_down()
 
+        if event.type == pygame.KEYUP:
+            if event.key == K_d:
+                square.update_rotating_block_clockwise()
+
     if game_running:
         screen.fill(white)
 
@@ -88,7 +92,6 @@ while True:
             counter = 1
         else:
             counter += 1
-        print(square.moving_block, square.store_block)
         square.touch_down()
 
     pygame.display.update()

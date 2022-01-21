@@ -72,6 +72,7 @@ class Square:
         self.touch_floor = False
         self.lose = False
         self.move_down = True
+        self.rotation_counter = 1
 
     def update_moving_block(self):
 
@@ -103,6 +104,7 @@ class Square:
         if self.block_generate:
             # choose a random number
             # 1 -> z, 2 -> s, 3 -> 0, 4 -> l, 5 -> j, 6 -> i, 7 -> t
+            self.rotation_counter = 1
             if self.tetris == 1:
                 self.moving_block = [[0, 4], [0, 5], [1, 5], [1, 6]]
             if self.tetris == 2:
@@ -112,7 +114,7 @@ class Square:
             if self.tetris == 4:
                 self.moving_block = [[0, 5], [1, 5], [2, 5], [2, 6]]
             if self.tetris == 5:
-                self.moving_block = [[0, 6], [1, 6], [2, 6], [2, 5]]
+                self.moving_block = [[2, 5], [2, 6], [1, 6], [0, 6]]
             if self.tetris == 6:
                 self.moving_block = [[0, 4], [0, 5], [0, 6], [0, 7]]
             if self.tetris == 7:
@@ -251,3 +253,141 @@ class Square:
             self.delete_old_tetris()
 
             self.render_new_tetris()
+
+    def update_rotating_block_clockwise(self):
+        self.temporary_store()
+        self.rotate_block_clockwise()
+        self.delete_old_tetris()
+        self.render_new_tetris()
+
+    def rotate_block_clockwise(self):
+
+        [[Ya, Xa], [Yb, Xb], [Yc, Xc], [Yd, Xd]] = self.moving_block
+        rotation = True
+
+        if self.tetris == 1:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya + 2, Xa], [Yb + 1, Xb - 1], [Yc, Xc], [Yd - 1, Xd - 1]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya, Xa + 2], [Yb + 1, Xb + 1], [Yc, Xc], [Yd + 1, Xd - 1]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya - 2, Xa], [Yb - 1, Xb + 1], [Yc, Xc], [Yd + 1, Xd + 1]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya, Xa - 2], [Yb - 1, Xb - 1], [Yc, Xc], [Yd - 1, Xd + 1]]
+                self.rotation_counter = 1
+                rotation = False
+
+        if self.tetris == 2:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya + 1, Xa + 1], [Yb, Xb], [Yc + 1, Xc - 1], [Yd, Xd - 2]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya - 1, Xa + 1], [Yb, Xb], [Yc + 1, Xc + 1], [Yd + 2, Xd]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya - 1, Xa - 1], [Yb, Xb], [Yc - 1, Xc + 1], [Yd, Xd + 2]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya + 1, Xa - 1], [Yb, Xb], [Yc - 1, Xc - 1], [Yd - 2, Xd]]
+                self.rotation_counter = 1
+                rotation = False
+
+        if self.tetris == 4:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya + 2, Xa], [Yb + 1, Xb + 1], [Yc, Xc + 2], [Yd - 1, Xd + 1]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya, Xa + 2], [Yb - 1, Xb + 1], [Yc - 2, Xc], [Yd - 1, Xd - 1]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya - 2, Xa], [Yb - 1, Xb - 1], [Yc, Xc - 2], [Yd + 1, Xd - 1]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya, Xa - 2], [Yb + 1, Xb - 1], [Yc + 2, Xc], [Yd + 1, Xd + 1]]
+                self.rotation_counter = 1
+                rotation = False
+
+        if self.tetris == 5:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya - 1, Xa + 1], [Yb - 2, Xb], [Yc - 1, Xc - 1], [Yd, Xd - 2]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya - 1, Xa - 1], [Yb, Xb - 2], [Yc + 1, Xc - 1], [Yd + 2, Xd]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya + 1, Xa - 1], [Yb + 2, Xb], [Yc + 1, Xc + 1], [Yd, Xd + 2]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya + 1, Xa + 1], [Yb, Xb + 2], [Yc - 1, Xc + 1], [Yd - 2, Xd]]
+                self.rotation_counter = 1
+                rotation = False
+
+        if self.tetris == 6:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya + 2, Xa + 1], [Yb + 1, Xb], [Yc, Xc - 1], [Yd - 1, Xd - 2]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya - 1, Xa + 2], [Yb, Xb + 1], [Yc + 1, Xc], [Yd + 2, Xd - 1]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya - 2, Xa - 1], [Yb - 1, Xb], [Yc, Xc + 1], [Yd + 1, Xd + 2]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya + 1, Xa - 2], [Yb, Xb - 1], [Yc - 1, Xc], [Yd - 2, Xd + 1]]
+                self.rotation_counter = 1
+                rotation = False
+
+        if self.tetris == 7:
+            if self.rotation_counter == 1 and rotation:
+                self.moving_block = [[Ya + 1, Xa + 1], [Yb, Xb], [Yc - 1, Xc - 1], [Yd - 1, Xd + 1]]
+                self.rotation_counter = 2
+                rotation = False
+
+            if self.rotation_counter == 2 and rotation:
+                self.moving_block = [[Ya - 1, Xa + 1], [Yb, Xb], [Yc + 1, Xc - 1], [Yd - 1, Xd - 1]]
+                self.rotation_counter = 3
+                rotation = False
+
+            if self.rotation_counter == 3 and rotation:
+                self.moving_block = [[Ya - 1, Xa - 1], [Yb, Xb], [Yc + 1, Xc + 1], [Yd + 1, Xd - 1]]
+                self.rotation_counter = 4
+                rotation = False
+
+            if self.rotation_counter == 4 and rotation:
+                self.moving_block = [[Ya + 1, Xa - 1], [Yb, Xb], [Yc - 1, Xc + 1], [Yd + 1, Xd + 1]]
+                self.rotation_counter = 1
+                rotation = False
+
