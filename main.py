@@ -84,10 +84,11 @@ while True:
             game_running = False
             break
 
+        square.clear_stationary_blocks()
         square.generate_block()
         square_printing()
 
-        if counter == 60:
+        if counter == 10:
             square.update_moving_block()
             counter = 1
         else:
